@@ -63,7 +63,7 @@ DWORD WINAPI ThreadD(LPVOID name)
 	
 
 	//ждём A
-	WaitForSingleObject(Threads[0], INFINITE);
+	WaitForSingleObject(tid[0], INFINITE);
 
 	for (int i = 0; i < 3; i++)
 	{
