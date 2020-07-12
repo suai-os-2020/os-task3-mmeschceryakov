@@ -298,6 +298,17 @@ DWORD WINAPI ThreadK(LPVOID name)
 	return 0;
 };
 
+DWORD WINAPI ThreadM(LPVOID name)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		WaitForSingleObject(mut, INFINITE);
+		cout << 'm' << flush;
+		computation();
+		ReleaseMutex(mut);
+	}
+	return 0;
+};
 
 
 
