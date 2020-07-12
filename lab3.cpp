@@ -4,6 +4,23 @@
 
 #define NUMBER_OF_THREADS 11
 
+using namespace std;
+
+unsigned int lab3_thread_graph_id() 
+{
+    return 11;
+}
+
+const char* lab3_unsynchronized_threads()
+{
+    return "bcde";
+}
+
+const char* lab3_sequential_threads()
+{
+    return "deg";
+}
+
 HANDLE tid[NUMBER_OF_THREADS], semD, semE, semG, mut;
 
 DWORD WINAPI ThreadA(LPVOID);
@@ -20,20 +37,7 @@ DWORD WINAPI ThreadM(LPVOID);
 
 DWORD ThreadID;
 
-unsigned int lab3_thread_graph_id() 
-{
-    return 11;
-}
 
-const char* lab3_unsynchronized_threads()
-{
-    return "bcde";
-}
-
-const char* lab3_sequential_threads()
-{
-    return "deg";
-}
 
 DWORD WINAPI ThreadA(LPVOID name)
 {
