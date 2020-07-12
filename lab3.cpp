@@ -74,14 +74,14 @@ DWORD WINAPI ThreadD(LPVOID name)
 	}
 
 	//запускаем E
-	Threads[2] = CreateThread(NULL, 0, ThreadE, NULL, 0, &ThreadID);
+	tid[2] = CreateThread(NULL, 0, ThreadE, NULL, 0, &ThreadID);
 	//запускаем B
-	Threads[3] = CreateThread(NULL, 0, ThreadB, NULL, 0, &ThreadID);
+	tid[3] = CreateThread(NULL, 0, ThreadB, NULL, 0, &ThreadID);
 	//запускаем C
-	Threads[4] = CreateThread(NULL, 0, ThreadC, NULL, 0, &ThreadID);
+	tid[4] = CreateThread(NULL, 0, ThreadC, NULL, 0, &ThreadID);
 
 	//ждём B
-	WaitForSingleObject(Threads[3], INFINITE);
+	WaitForSingleObject(tid[3], INFINITE);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -92,13 +92,13 @@ DWORD WINAPI ThreadD(LPVOID name)
 	}
 	
 	//запускаем F
-	Threads[5] = CreateThread(NULL, 0, ThreadF, NULL, 0, &ThreadID);
+	tid[5] = CreateThread(NULL, 0, ThreadF, NULL, 0, &ThreadID);
 	//ждём F
-	WaitForSingleObject(Threads[5], INFINITE);
+	WaitForSingleObject(tid[5], INFINITE);
 	//ждём C
-	WaitForSingleObject(Threads[4], INFINITE);
+	WaitForSingleObject(tid[4], INFINITE);
 
-	Threads[6] = CreateThread(NULL, 0, ThreadG, NULL, 0, &ThreadID);
+	tid[6] = CreateThread(NULL, 0, ThreadG, NULL, 0, &ThreadID);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -113,9 +113,9 @@ DWORD WINAPI ThreadD(LPVOID name)
 	}
 
 	//ждём E
-	WaitForSingleObject(Threads[2], INFINITE);
+	WaitForSingleObject(tid[2], INFINITE);
 	//ждём G
-	WaitForSingleObject(Threads[6], INFINITE);
+	WaitForSingleObject(tid[6], INFINITE);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -126,11 +126,11 @@ DWORD WINAPI ThreadD(LPVOID name)
 	}
 
 	//запускаем K
-	Threads[7] = CreateThread(NULL, 0, ThreadK, NULL, 0, &ThreadID);
+	tid[7] = CreateThread(NULL, 0, ThreadK, NULL, 0, &ThreadID);
 	//запускаем I
-	Threads[8] = CreateThread(NULL, 0, ThreadI, NULL, 0, &ThreadID);
+	tid[8] = CreateThread(NULL, 0, ThreadI, NULL, 0, &ThreadID);
 	//запускаем H
-	Threads[9] = CreateThread(NULL, 0, ThreadH, NULL, 0, &ThreadID);
+	tid[9] = CreateThread(NULL, 0, ThreadH, NULL, 0, &ThreadID);
 	
 	return 0;
 };
@@ -146,7 +146,7 @@ DWORD WINAPI ThreadE(LPVOID name)
 	}
 	
 	//ждём B
-	WaitForSingleObject(Threads[3], INFINITE);
+	WaitForSingleObject(tid[3], INFINITE);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -157,9 +157,9 @@ DWORD WINAPI ThreadE(LPVOID name)
 	}
 	
 	//ждём F
-	WaitForSingleObject(Threads[5], INFINITE);
+	WaitForSingleObject(tid[5], INFINITE);
 	//ждём C
-	WaitForSingleObject(Threads[4], INFINITE);
+	WaitForSingleObject(tid[4], INFINITE);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -201,7 +201,7 @@ DWORD WINAPI ThreadC(LPVOID name)
 	
 
 	//ждём B
-	WaitForSingleObject(Threads[3], INFINITE);
+	WaitForSingleObject(tid[3], INFINITE);
 	
 	for (int i = 0; i < 3; i++)
 	{
@@ -278,11 +278,11 @@ DWORD WINAPI ThreadK(LPVOID name)
 	
 	
 	//ждём I
-	WaitForSingleObject(Threads[8], INFINITE);
+	WaitForSingleObject(tid[8], INFINITE);
 	//ждём H
-	WaitForSingleObject(Threads[9], INFINITE);
+	WaitForSingleObject(tid[9], INFINITE);
 	//ждём D
-	WaitForSingleObject(Threads[1], INFINITE);
+	WaitForSingleObject(tid[1], INFINITE);
 
 	for (int i = 0; i < 3; i++)
 	{
@@ -293,7 +293,7 @@ DWORD WINAPI ThreadK(LPVOID name)
 	}
 
 	//запускаем M
-	Threads[10] = CreateThread(NULL, 0, ThreadM, NULL, 0, &ThreadID);
+	tid[10] = CreateThread(NULL, 0, ThreadM, NULL, 0, &ThreadID);
 	
 	return 0;
 };
@@ -339,20 +339,20 @@ int lab3_init()
 	}
     
 
-	Threads[0] = CreateThread(NULL, 0, ThreadA, NULL, 0, &ThreadID);
-    	Threads[1] = CreateThread(NULL, 0, ThreadD, NULL, 0, &ThreadID);
+	tid[0] = CreateThread(NULL, 0, ThreadA, NULL, 0, &ThreadID);
+    	tid[1] = CreateThread(NULL, 0, ThreadD, NULL, 0, &ThreadID);
 	//ждём A
-	WaitForSingleObject(Threads[0], INFINITE);
+	WaitForSingleObject(tid[0], INFINITE);
 	//ждём D
-	WaitForSingleObject(Threads[1], INFINITE);
+	WaitForSingleObject(tid[1], INFINITE);
 	//ждём K
-	WaitForSingleObject(Threads[7], INFINITE);
+	WaitForSingleObject(tid[7], INFINITE);
 	//ждём M
-	WaitForSingleObject(Threads[10], INFINITE);
+	WaitForSingleObject(tid[10], INFINITE);
 
-	for (int i = 0; i < THREADCOUNT; i++) 
+	for (int i = 0; i < NUMBER_OF_THREADS; i++) 
 	{
-       		CloseHandle(Threads[i]);
+       		CloseHandle(tid[i]);
 	}
 	
 	CloseHandle(semD);
