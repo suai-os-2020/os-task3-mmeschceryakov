@@ -166,7 +166,7 @@ DWORD WINAPI ThreadE(LPVOID name)
 		//semE down
 		WaitForSingleObject(semE, INFINITE);
 		WaitForSingleObject(mut, INFINITE);
-		cout << 'd' << flush;
+		cout << 'e' << flush;
 		computation();
 		ReleaseMutex(mut);
 		//semG up
