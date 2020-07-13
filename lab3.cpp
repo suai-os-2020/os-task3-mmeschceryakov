@@ -284,6 +284,9 @@ DWORD WINAPI ThreadK(LPVOID name)
 	//ждём D
 	WaitForSingleObject(tid[1], INFINITE);
 
+	//запускаем M
+	tid[10] = CreateThread(NULL, 0, ThreadM, NULL, 0, &ThreadID);
+
 	for (int i = 0; i < 3; i++)
 	{
 		WaitForSingleObject(mut, INFINITE);
@@ -291,9 +294,6 @@ DWORD WINAPI ThreadK(LPVOID name)
 		computation();
 		ReleaseMutex(mut);
 	}
-
-	//запускаем M
-	tid[10] = CreateThread(NULL, 0, ThreadM, NULL, 0, &ThreadID);
 	
 	return 0;
 };
